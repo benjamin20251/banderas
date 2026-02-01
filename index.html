@@ -1,148 +1,110 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta charset="UTF-8">
 <title>Llaveros de Banderas</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- ========================== ESTILOS ========================== -->
 <style>
 :root {
-  --azul:#2563eb;
-  --verde:#16a34a;
-  --fondo:#f1f5f9;
+  --azul: #2563eb;
+  --verde: #16a34a;
+  --fondo: #f1f5f9;
+  --gris: #e5e7eb;
+  --rojo: #ef4444;
+  --amarillo: #facc15;
 }
 
 body {
-  margin:0;
-  font-family:system-ui, sans-serif;
-  background:var(--fondo);
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: var(--fondo);
+  color: #111827;
 }
 
-/* ===================== HEADER ===================== */
 header {
-  background:linear-gradient(135deg,var(--azul),#60a5fa);
-  color:white;
-  text-align:center;
-  padding:30px 20px;
-}
-
-header h1 {
-  margin:0;
-  font-size:2.2rem;
-}
-
-header p {
-  margin-top:5px;
-  font-size:1rem;
-  opacity:0.9;
+  background: linear-gradient(135deg, var(--azul), #60a5fa);
+  color: white;
+  text-align: center;
+  padding: 30px 20px;
 }
 
 header img {
-  width: 80%; /* Antes era 260px */
+  width: 80%;
   max-width: 260px;
   border-radius: 14px;
   box-shadow: 0 10px 25px rgba(0,0,0,.3);
   margin-top: 15px;
 }
 
+h1 { margin: 0; font-size: 2rem; }
+h2 { font-size: 1.6rem; margin-bottom: 15px; }
+h3 { font-size: 1.2rem; margin: 5px 0; }
 
-/* ===================== SECCIONES ===================== */
 section {
   max-width: 1100px;
-  margin: 20px auto; /* antes 40px */
-  padding: 10px;      /* antes 20px */
+  margin: 40px auto;
+  padding: 20px;
 }
 
-h1, h2, h3, p, .precio {
-  word-wrap: break-word;
-}
-
-@media (max-width: 480px) {
-  h1 { font-size: 1.8rem; }
-  h2 { font-size: 1.4rem; }
-  h3 { font-size: 1.2rem; }
-  .precio { font-size: 1.1rem; }
-  button { padding: 8px 12px; font-size: 0.9rem; }
-}
-
-@media (max-width: 480px) {
-  #carrito-box {
-    width: 90%;
-    padding: 15px;
-    margin: 20px auto;
-  }
-}
-
-@media (max-width: 480px) {
-  #btn-carrito {
-    width: 50px;
-    height: 50px;
-    font-size: 22px;
-  }
-}
-
-
-
-/* ===================== PRODUCTOS ===================== */
 .productos {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); /* más pequeño en móvil */
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
   gap: 15px;
 }
 
-
 .card {
-  padding: 15px; /* antes 20px */
+  background: white;
+  border-radius: 14px;
+  padding: 15px;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(0,0,0,.12);
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
 }
 
 .precio {
-  font-size:1.3rem;
-  font-weight:bold;
-  color:var(--azul);
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--azul);
 }
 
 button {
-  padding:10px 16px;
-  border:none;
-  border-radius:8px;
-  background:var(--azul);
-  color:white;
-  cursor:pointer;
-  margin-top:10px;
-  font-weight:bold;
-  transition:0.2s;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 8px;
+  background: var(--azul);
+  color: white;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background 0.2s;
 }
 
 button:hover {
-  background:#1e40af;
+  background: #1e40af;
 }
 
-/* ===================== CARRITO ===================== */
 #carrito-box {
-  background:white;
-  max-width:500px;
-  margin:40px auto;
-  padding:20px;
-  border-radius:14px;
-  box-shadow:0 10px 25px rgba(0,0,0,.2);
+  background: white;
+  max-width: 500px;
+  margin: 40px auto;
+  padding: 20px;
+  border-radius: 14px;
+  box-shadow: 0 10px 25px rgba(0,0,0,.2);
 }
 
-#carrito-box h3 {
-  margin-top:0;
+.whatsapp {
+  display: block;
+  margin-top: 15px;
+  text-align: center;
+  font-weight: bold;
+  color: var(--verde);
+  text-decoration: none;
 }
 
-#lista-carrito {
-  list-style:none;
-  padding-left:0;
-}
-
-#lista-carrito li {
-  padding:5px 0;
-  border-bottom:1px solid #eee;
-}
-
-/* ===================== BOTÓN CARRITO ===================== */
 #btn-carrito {
   position: fixed;
   bottom: 20px;
@@ -150,64 +112,80 @@ button:hover {
   width: 60px;
   height: 60px;
   border-radius: 50%;
+  background: #111827;
+  color: white;
   font-size: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 10px 25px rgba(0,0,0,.35);
 }
 
-
-/* ===================== WHATSAPP ===================== */
-.whatsapp {
-  display:block;
-  margin-top:15px;
-  text-align:center;
-  font-weight:bold;
-  color:var(--verde);
-  text-decoration:none;
+.personalizados-box {
+  background: #fff;
+  border-radius: 14px;
+  padding: 20px;
+  margin-top: 40px;
+  box-shadow: 0 8px 20px rgba(0,0,0,.1);
+  text-align: center;
 }
 
-/* ===================== PERSONALIZADOS ===================== */
-#personalizados {
-  background:white;
-  max-width:600px;
-  margin:40px auto;
-  padding:20px;
-  border-radius:14px;
-  box-shadow:0 8px 20px rgba(0,0,0,.15);
-  text-align:center;
+.personalizados-box input[type="file"] {
+  margin-top: 10px;
 }
 
-#estadoPersonalizada {
-  margin-top:10px;
-  font-weight:bold;
-  color:var(--azul);
+.personalizados-box p {
+  margin-top: 10px;
+  color: var(--rojo);
+  font-weight: bold;
 }
+
+@media (max-width: 480px) {
+  section { margin: 20px auto; padding: 10px; }
+  .card { padding: 10px; }
+  button { padding: 6px 10px; font-size: 0.9rem; }
+  #btn-carrito { width: 50px; height: 50px; font-size: 22px; }
+  h1 { font-size: 1.6rem; }
+  h2 { font-size: 1.3rem; }
+  h3 { font-size: 1rem; }
+  #carrito-box { width: 90%; padding: 15px; margin: 20px auto; }
+}
+
+/* Animaciones */
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.card, .personalizados-box {
+  animation: slideIn 0.5s ease forwards;
+}
+
 </style>
 </head>
 
 <body>
 
-<!-- ===================== HEADER ===================== -->
 <header>
   <h1>Llaveros de Banderas</h1>
   <p>Venta en efectivo · Entrega personal</p>
   <img id="img-principal">
 </header>
 
-<!-- ===================== PRODUCTOS ===================== -->
 <section>
   <h2>Productos disponibles</h2>
   <div class="productos" id="productos"></div>
 </section>
 
-<!-- ===================== PERSONALIZADOS ===================== -->
-<section id="personalizados">
-  <h2>🔧 Llaveros Personalizados</h2>
-  <p>Subí tu imagen, coordinamos el pago y lo hago a pedido. Precio desde $100</p>
-  <input type="file" id="imgPersonalizada" accept="image/*"><br><br>
-  <button id="enviarPersonalizada">Enviar diseño</button>
-  <p id="estadoPersonalizada"></p>
+<section class="personalizados-box">
+  <h2>Llaveros Personalizados</h2>
+  <p>Sube tu diseño y lo producimos</p>
+  <input type="file" id="img-personalizada">
+  <p id="estado-personalizado">Llaveros impresos están en mantenimiento</p>
+  <button id="enviar-personalizado">Enviar pedido personalizado</button>
 </section>
 
-<!-- ===================== CARRITO ===================== -->
 <section id="zona-carrito">
   <div id="carrito-box">
     <h3>🛒 Carrito</h3>
@@ -218,39 +196,49 @@ button:hover {
   </div>
 </section>
 
-<!-- ===================== BOTÓN CARRITO ===================== -->
 <div id="btn-carrito">🛒</div>
 
-<!-- ===================== SCRIPT PRINCIPAL ===================== -->
 <script type="module">
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
 
-// 🔴 REEMPLAZÁ ESTO CON TUS DATOS REALES
 const supabaseUrl = 'https://drabigponnfztvbdxsjc.supabase.co'
 const supabaseKey = 'sb_publishable_gHdyPfSabCkNEblGZI8mWg_qMnr4IKb'
 const supabase = createClient(supabaseUrl, supabaseKey)
 
-// ===================== IMAGEN PRINCIPAL =====================
-document.getElementById('img-principal').src =
-  supabaseUrl + '/storage/v1/object/public/imagenes/banderas.jpg'
+// imagen principal
+document.getElementById('img-principal').src = supabaseUrl + '/storage/v1/object/public/imagenes/banderas.jpg'
 
-// ===================== FUNCIÓN PRECIO FIJO =====================
-function calcularPrecio(nombreProducto) {
-  const caros = ['uruguay','argentina','brasil']
-  if(caros.includes(nombreProducto.toLowerCase())) return 100
-  return 50
-}
+// Productos
+const productosData = [
+  { productos:'Canada', peso_gramos:3 },
+  { productos:'Mexico', peso_gramos:5 },
+  { productos:'Chile', peso_gramos:5 },
+  { productos:'Estados Unidos', peso_gramos:5 },
+  { productos:'Argentina', peso_gramos:5 },
+  { productos:'Japon', peso_gramos:4 },
+  { productos:'Ucrania', peso_gramos:4 },
+  { productos:'Uruguay', peso_gramos:5 },
+  { productos:'Paraguay', peso_gramos:4 },
+  { productos:'Jamaica', peso_gramos:5 },
+  { productos:'Brasil', peso_gramos:6 },
+  { productos:'Suecia', peso_gramos:5 }
+]
 
-// ===================== VARIABLES =====================
+const preciosEspeciales = ['Uruguay','Argentina','Brasil']
+
 const cont = document.getElementById('productos')
 const carrito = []
 const lista = document.getElementById('lista-carrito')
 const totalSpan = document.getElementById('total')
 
-// ===================== RENDER CARRITO =====================
-function renderCarrito() {
-  lista.innerHTML = ''
-  let total = 0
+function calcularPrecio(p) {
+  if(preciosEspeciales.includes(p.productos)) return 100
+  return 50
+}
+
+function renderCarrito(){
+  lista.innerHTML=''
+  let total=0
   carrito.forEach(p=>{
     const li=document.createElement('li')
     li.textContent=`${p.productos} - $${p.precio}`
@@ -260,89 +248,55 @@ function renderCarrito() {
   totalSpan.textContent=total
 }
 
-// ===================== CARGAR PRODUCTOS =====================
-const { data: productos, error } = await supabase
-  .from('productos')
-  .select('*')
-  .eq('stock', true)
-
-if(error || !productos){
-  console.error(error)
-  cont.innerHTML='<p>Error cargando productos</p>'
-} else {
-  productos.forEach(p=>{
-    const precio = calcularPrecio(p.productos)
-    const card=document.createElement('div')
-    card.className='card'
-    card.innerHTML=`
-      <h3>${p.productos}</h3>
-      <p>${p.peso_gramos} g</p>
-      <p class="precio">$${precio}</p>
-      <button>Agregar al carrito</button>
-    `
-    card.querySelector('button').onclick=()=>{
-      carrito.push({...p,precio})
-      renderCarrito()
-    }
-    cont.appendChild(card)
-  })
-}
-
-// ===================== ORDENAR =====================
-document.getElementById('ordenar').onclick=async()=>{
-  if(!carrito.length){ alert('Carrito vacío'); return }
-
-  for(const p of carrito){
-    await supabase.from('ordenes').insert({
-      producto:p.productos,
-      peso_gramos:p.peso_gramos,
-      activo:true
-    })
-    await supabase.from('productos')
-      .update({stock:false})
-      .eq('productos',p.productos)
+// Render productos
+productosData.forEach(p=>{
+  const precio = calcularPrecio(p)
+  const card = document.createElement('div')
+  card.className='card'
+  card.innerHTML=`
+    <h3>${p.productos}</h3>
+    <p>Peso: ${p.peso_gramos} g</p>
+    <p class="precio">$${precio}</p>
+    <button>Agregar al carrito</button>
+  `
+  card.querySelector('button').onclick=()=>{
+    carrito.push({...p, precio})
+    renderCarrito()
   }
-  alert('Pedido registrado. Contactame por WhatsApp.')
-  location.reload()
+  cont.appendChild(card)
+})
+
+// Ordenar
+document.getElementById('ordenar').onclick=()=>{
+  if(carrito.length===0){
+    alert('Carrito vacío')
+    return
+  }
+  alert('Pedido registrado. Contactame por WhatsApp para coordinar pago en efectivo.')
+  carrito.length=0
+  renderCarrito()
 }
 
-// ===================== BOTÓN CARRITO =====================
+// Botón carrito
 document.getElementById('btn-carrito').onclick=()=>{
   document.getElementById('zona-carrito').scrollIntoView({behavior:'smooth'})
 }
 
-// ===================== PERSONALIZADOS =====================
-document.getElementById('enviarPersonalizada').onclick=async()=>{
-  const file=document.getElementById('imgPersonalizada').files[0]
-  if(!file){ alert('Subí una imagen primero'); return }
-
-  const nombre = Date.now()+'-'+file.name
-
-  const { error: uploadError } = await supabase
-    .storage.from('personalizados').upload(nombre,file)
-
-  if(uploadError){
-    console.error(uploadError)
-    alert('Error subiendo imagen')
+// Personalizados
+document.getElementById('enviar-personalizado').onclick=()=>{
+  const file = document.getElementById('img-personalizada').files[0]
+  if(!file){
+    alert('Selecciona una imagen')
     return
   }
-
-  await supabase.from('ordenes_personalizadas').insert({
-    imagen:nombre,
-    activo:true
-  })
-
-  document.getElementById('estadoPersonalizada').textContent=
-    '✅ Diseño enviado. Contactame por WhatsApp para coordinar.'
+  alert('Pedido personalizado registrado. Te contactaremos por WhatsApp.')
 }
 </script>
 
-<!-- ===================== VERCEL ANALYTICS ===================== -->
 <script>
-window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+window.va = window.va || function(){(window.vaq = window.vaq || []).push(arguments);}
 </script>
-
-<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/analytics/script.js"></script>
 
 </body>
 </html>
