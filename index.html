@@ -8,26 +8,27 @@
 :root {
   --azul:#2563eb;
   --verde:#16a34a;
-  --gris:#f1f5f9;
+  --fondo:#f1f5f9;
 }
 
 body {
   margin:0;
   font-family:system-ui, sans-serif;
-  background:var(--gris);
+  background:var(--fondo);
 }
 
 header {
   background:linear-gradient(135deg,var(--azul),#60a5fa);
   color:white;
-  padding:30px 20px;
   text-align:center;
+  padding:30px 20px;
 }
 
 header img {
   width:260px;
   border-radius:14px;
-  box-shadow:0 10px 30px rgba(0,0,0,.3);
+  box-shadow:0 10px 25px rgba(0,0,0,.3);
+  margin-top:15px;
 }
 
 section {
@@ -38,16 +39,16 @@ section {
 
 .productos {
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
   gap:20px;
 }
 
 .card {
   background:white;
-  padding:20px;
   border-radius:14px;
-  box-shadow:0 8px 20px rgba(0,0,0,.12);
+  padding:20px;
   text-align:center;
+  box-shadow:0 8px 20px rgba(0,0,0,.12);
 }
 
 .precio {
@@ -57,49 +58,48 @@ section {
 }
 
 button {
-  margin-top:10px;
   padding:10px 16px;
   border:none;
   border-radius:8px;
   background:var(--azul);
   color:white;
   cursor:pointer;
+  margin-top:10px;
 }
 
-#carrito {
+#carrito-box {
   background:white;
   max-width:500px;
   margin:40px auto;
   padding:20px;
   border-radius:14px;
-  box-shadow:0 10px 25px rgba(0,0,0,.18);
+  box-shadow:0 10px 25px rgba(0,0,0,.2);
 }
 
 .whatsapp {
   display:block;
-  margin-top:12px;
+  margin-top:15px;
+  text-align:center;
   font-weight:bold;
   color:var(--verde);
   text-decoration:none;
-  text-align:center;
 }
 
-/* 🛒 BOTÓN FLOTANTE */
 #btn-carrito {
   position:fixed;
   bottom:20px;
   right:20px;
-  background:#111827;
-  color:white;
-  font-size:26px;
   width:60px;
   height:60px;
   border-radius:50%;
+  background:#111827;
+  color:white;
+  font-size:26px;
   display:flex;
   align-items:center;
   justify-content:center;
   cursor:pointer;
-  box-shadow:0 10px 25px rgba(0,0,0,.3);
+  box-shadow:0 10px 25px rgba(0,0,0,.35);
 }
 </style>
 </head>
@@ -108,35 +108,34 @@ button {
 
 <header>
   <h1>Llaveros de Banderas</h1>
+  <p>Venta en efectivo · Entrega personal</p>
   <img id="img-principal">
 </header>
 
 <section>
-  <h2>Llaveros disponibles</h2>
+  <h2>Productos disponibles</h2>
   <div class="productos" id="productos"></div>
 </section>
 
-<!-- 🛒 CARRITO -->
 <section id="zona-carrito">
-  <div id="carrito">
-    <h3>Carrito</h3>
+  <div id="carrito-box">
+    <h3>🛒 Carrito</h3>
     <ul id="lista-carrito"></ul>
     <p><strong>Total:</strong> $<span id="total">0</span></p>
     <button id="ordenar">ORDENAR</button>
-    <a class="whatsapp" href="http://wa.me/+59894038105" target="_blank">
+    <a class="whatsapp" href="https://wa.me/59894038105" target="_blank">
       📲 Contactame
     </a>
   </div>
 </section>
 
-<!-- 🛒 BOTÓN -->
 <div id="btn-carrito">🛒</div>
 
 <script type="module">
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
 
-// 🔴 REEMPLAZÁ CON TUS DATOS
-const supabaseUrl = 'https://TU-PROYECTO.supabase.co'
+// 🔴 REEMPLAZÁ ESTO
+const supabaseUrl = 'https://TU_PROYECTO.supabase.co'
 const supabaseKey = 'TU_ANON_KEY'
 const supabase = createClient(supabaseUrl, supabaseKey)
 
@@ -144,21 +143,16 @@ const supabase = createClient(supabaseUrl, supabaseKey)
 document.getElementById('img-principal').src =
   supabaseUrl + '/storage/v1/object/public/imagenes/banderas.jpg'
 
-// 💰 precio automático (10–50)
+// 💰 precio automático
 function calcularPrecio(peso) {
-  const PESO_MIN = 2
-  const PESO_MAX = 6
-  const PRECIO_MIN = 10
-  const PRECIO_MAX = 50
-
+  const minP = 2, maxP = 6
+  const min$ = 10, max$ = 50
   return Math.round(
-    PRECIO_MIN +
-    ((peso - PESO_MIN) / (PESO_MAX - PESO_MIN)) *
-    (PRECIO_MAX - PRECIO_MIN)
+    min$ + ((peso - minP) / (maxP - minP)) * (max$ - min$)
   )
 }
 
-// ================== CARGAR PRODUCTOS ==================
+// ================= CARGAR PRODUCTOS =================
 const { data: productos, error } = await supabase
   .from('productos')
   .select('*')
@@ -191,24 +185,24 @@ function renderCarrito() {
 productos.forEach(p => {
   const precio = calcularPrecio(p.peso_gramos)
 
-  const div = document.createElement('div')
-  div.className = 'card'
-  div.innerHTML = `
+  const card = document.createElement('div')
+  card.className = 'card'
+  card.innerHTML = `
     <h3>${p.productos}</h3>
     <p>Peso: ${p.peso_gramos} g</p>
     <p class="precio">$${precio}</p>
     <button>Agregar al carrito</button>
   `
 
-  div.querySelector('button').onclick = () => {
+  card.querySelector('button').onclick = () => {
     carrito.push({ ...p, precio })
     renderCarrito()
   }
 
-  cont.appendChild(div)
+  cont.appendChild(card)
 })
 
-// ================== ORDENAR ==================
+// ================= ORDENAR =================
 document.getElementById('ordenar').onclick = async () => {
   if (carrito.length === 0) {
     alert('Carrito vacío')
@@ -222,7 +216,6 @@ document.getElementById('ordenar').onclick = async () => {
       activo: true
     })
 
-    // 🔁 reemplaza stock (sin columnas nuevas)
     await supabase
       .from('productos')
       .update({ stock: false })
@@ -233,7 +226,7 @@ document.getElementById('ordenar').onclick = async () => {
   location.reload()
 }
 
-// ================== BOTÓN CARRITO ==================
+// ================= BOTÓN CARRITO =================
 document.getElementById('btn-carrito').onclick = () => {
   document
     .getElementById('zona-carrito')
@@ -241,13 +234,11 @@ document.getElementById('btn-carrito').onclick = () => {
 }
 </script>
 
-<!-- 📊 VERCEL ANALYTICS (HTML ESTÁTICO) -->
+<!-- 📊 VERCEL ANALYTICS (HTML ESTÁTICO CORRECTO) -->
 <script>
-  window.va =
-    window.va ||
-    function () {
-      (window.vaq = window.vaq || []).push(arguments)
-    }
+  window.va = window.va || function () {
+    (window.vaq = window.vaq || []).push(arguments)
+  }
 </script>
 <script defer src="/_vercel/analytics/script.js"></script>
 
