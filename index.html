@@ -133,12 +133,11 @@ button {
 <div id="btn-carrito">🛒</div>
 
 <script type="module">
-import { Analytics } from "@vercel/analytics/next"
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
 
-// 🔴 TUS DATOS
-const supabaseUrl = 'https://drabigponnfztvbdxsjc.supabase.co'
-const supabaseKey = 'sb_publishable_gHdyPfSabCkNEblGZI8mWg_qMnr4IKb'
+// 🔴 REEMPLAZÁ CON TUS DATOS
+const supabaseUrl = 'https://TU-PROYECTO.supabase.co'
+const supabaseKey = 'TU_ANON_KEY'
 const supabase = createClient(supabaseUrl, supabaseKey)
 
 // imagen principal
@@ -166,8 +165,8 @@ const { data: productos, error } = await supabase
   .eq('stock', true)
 
 if (error) {
-  alert('Error cargando productos')
   console.error(error)
+  alert('Error cargando productos')
 }
 
 const cont = document.getElementById('productos')
@@ -223,7 +222,7 @@ document.getElementById('ordenar').onclick = async () => {
       activo: true
     })
 
-    // 🔁 REEMPLAZA stock (NO agrega columna)
+    // 🔁 reemplaza stock (sin columnas nuevas)
     await supabase
       .from('productos')
       .update({ stock: false })
@@ -236,10 +235,21 @@ document.getElementById('ordenar').onclick = async () => {
 
 // ================== BOTÓN CARRITO ==================
 document.getElementById('btn-carrito').onclick = () => {
-  document.getElementById('zona-carrito')
+  document
+    .getElementById('zona-carrito')
     .scrollIntoView({ behavior: 'smooth' })
 }
 </script>
+
+<!-- 📊 VERCEL ANALYTICS (HTML ESTÁTICO) -->
+<script>
+  window.va =
+    window.va ||
+    function () {
+      (window.vaq = window.vaq || []).push(arguments)
+    }
+</script>
+<script defer src="/_vercel/analytics/script.js"></script>
 
 </body>
 </html>
