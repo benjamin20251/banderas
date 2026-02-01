@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Llaveros de Banderas</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="style.css">
 </head>
 
@@ -20,12 +19,13 @@
   <div class="productos" id="productos"></div>
 </section>
 
-<section class="personalizados-box">
+<section>
   <h2>Llaveros Personalizados</h2>
-  <p>Sube tu diseño y lo producimos</p>
-  <input type="file" id="img-personalizada" accept=".jpg,.jpeg,.gif,image/*">
-  <p id="estado-personalizado">Llaveros impresos están en mantenimiento</p>
-  <button id="enviar-personalizado">Enviar pedido personalizado</button>
+  <form id="form-personalizados">
+    <label>Subí tu imagen (jpg, png, gif):</label>
+    <input type="file" id="archivo-personalizado" accept=".jpg,.jpeg,.png,.gif" required>
+    <button type="submit">Subir y ordenar</button>
+  </form>
 </section>
 
 <section id="zona-carrito">
@@ -34,17 +34,15 @@
     <ul id="lista-carrito"></ul>
     <p><strong>Total:</strong> $<span id="total">0</span></p>
     <button id="ordenar">ORDENAR</button>
-    <a class="whatsapp" href="https://wa.me/59894038105" target="_blank">📲 Contactame</a>
+    <a class="whatsapp" href="https://wa.me/59894038105" target="_blank">
+      📲 Contactame
+    </a>
   </div>
 </section>
 
 <div id="btn-carrito">🛒</div>
 
 <script type="module" src="script.js"></script>
-<script>
-window.va = window.va || function(){(window.vaq = window.vaq || []).push(arguments);}
-</script>
-<script defer src="/_vercel/analytics/script.js"></script>
 
 </body>
 </html>
